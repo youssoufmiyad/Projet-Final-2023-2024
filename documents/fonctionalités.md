@@ -14,11 +14,11 @@
 - Intéraction avec le profil d'autres utilisateurs (follow, partage, etc...) :hourglass_flowing_sand:
 - Modification du profil :hourglass_flowing_sand:
 - Système de like/republicaions de posts :hourglass_flowing_sand:
-- Enregistrement de publications :hourglass_flowing_sand:
 - Espace de travail collaboratif :hourglass_flowing_sand:
 
 ## Foncitonalités bonus
 ### Fonctionalités envisageable mais pas forcément prioritaire / réalisable dans les délais
+- Enregistrement de publications :hourglass_flowing_sand:
 - Messagerie :hourglass_flowing_sand:
 - Notifications :hourglass_flowing_sand:
 - Algorithme de recommandations :hourglass_flowing_sand:
