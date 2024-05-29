@@ -30,7 +30,7 @@ const LandingPage = () => {
 					fontWeight: "bold",
 				}}
 			>
-				Profitez de notre réseau pour faire connaissance avec des profils qui
+				Profitez de notre réseau pour faire connaissance avec <br /> des profils qui
 				vous correspondent.
 			</Typography>
 			<br />
