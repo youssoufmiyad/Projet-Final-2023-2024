@@ -1,14 +1,11 @@
 import React from "react";
 import { Stack, Typography, Button } from "@mui/material";
-import { Navigate } from "react-router-dom";
 
 const LandingPage = () => {
+	document.documentElement.style.backgroundColor = "#7C5CFF";
+
 	return (
-		<Stack
-			width={window.screen.width}
-			maxHeight={window.screen.height}
-			sx={{ backgroundColor: "#7C5CFF" }}
-		>
+		<Stack>
 			<Typography
 				style={{
 					margin: "32px 0px 32px 40px",
@@ -30,8 +27,8 @@ const LandingPage = () => {
 					fontWeight: "bold",
 				}}
 			>
-				Profitez de notre réseau pour faire connaissance avec <br /> des profils qui
-				vous correspondent.
+				Profitez de notre réseau pour faire connaissance avec <br /> des profils
+				qui vous correspondent.
 			</Typography>
 			<br />
 			<Button
