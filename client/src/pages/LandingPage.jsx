@@ -32,15 +32,13 @@ const LandingPage = () => {
 			</Typography>
 			<br />
 			<Button
-				variant="outlined"
+				variant="contained"
 				sx={{
-					margin: "72px 0px 0px 0px",
+					marginTop: "72px",
 					width: "196px",
 					height: "64px",
-					color: "#FFF",
 					backgroundColor: "#7A7CFF",
 					borderRadius: 5,
-					borderColor: "#000",
 					alignSelf: "center",
 				}}
 				onClick={() => {
