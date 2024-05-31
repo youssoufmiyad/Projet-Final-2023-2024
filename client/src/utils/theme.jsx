@@ -1,4 +1,11 @@
 export const themeOptions = {
+	overrides: {
+		MuiButton: {
+			root: {
+				backgroundColor: "#FFF",
+			},
+		},
+	},
 	palette: {
 		mode: "light",
 		primary: {
@@ -12,8 +19,8 @@ export const themeOptions = {
 			default: "#ffffff",
 		},
 		text: {
-			primary: "rgba(113,102,102,0.65)",
-			secondary: "#000000",
+			primary: "#000",
+			secondary: "rgba(113,102,102,0.65)",
 			disabled: "#716666",
 			hint: "#7a7cff",
 		},
