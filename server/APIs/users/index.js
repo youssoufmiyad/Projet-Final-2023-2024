@@ -1,6 +1,6 @@
 const express = require("express");
 
-const usersRoute = require("./routes/users.routes.js")
+const usersRoute = require("./routes/users.js")
 require("dotenv").config();
 
 const app = express();
@@ -31,5 +31,6 @@ app.use("/users", usersRoute);
 
 
 app.listen(PORT, () => {
+	console.log(process.env.MYSQL_HOST)
 	console.log(`listening on port http://localhost:${PORT}`);
 });

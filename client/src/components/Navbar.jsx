@@ -11,7 +11,8 @@ const Navbar = () => {
 		password: sessionStorage.getItem("password"),
 	};
     console.log(process.env.ROOT_URL)
-	return (
+	if (user._id) {
+		return (
 		<Stack
 			className="navbar"
 			id="navbar"
@@ -47,5 +48,7 @@ const Navbar = () => {
 			<br />
 		</Stack>
 	);
+	}
+	
 };
 export default Navbar;

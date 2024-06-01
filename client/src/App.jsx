@@ -1,17 +1,25 @@
-import { useState } from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LandingPage from "./pages/LandingPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import "./App.css";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup"
+import { themeOptions } from "./utils/theme";
 
 function App() {
+	const theme = createTheme(themeOptions);
 	return (
-		<Router>
-      <Navbar/>
-			<Routes>
-				<Route path="/" element={<LandingPage />} />
-			</Routes>
-		</Router>
+		<ThemeProvider theme={theme}>
+			<Router>
+				<Navbar />
+				<Routes>
+					<Route path="/" element={<LandingPage />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/signup" element={<Signup />} />
+				</Routes>
+			</Router>
+		</ThemeProvider>
 	);
 }
 
