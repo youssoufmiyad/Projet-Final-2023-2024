@@ -22,9 +22,10 @@ router.post("/", bodyParser.json(), async (req, res) => {
 
 	try {
 		const sql =
-			"INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+			"INSERT INTO utilisateurs (nom, prenom, email, password) VALUES (?, ?, ?, ?)";
 		await pool.query(sql, [
-			req.body.username,
+			req.body.firstname,
+			req.body.lastname,
 			req.body.email,
 			req.body.password,
 		]);
@@ -36,8 +37,11 @@ router.post("/", bodyParser.json(), async (req, res) => {
 });
 
 router.patch("/:id", bodyParser.json(), getUser, async (req, res) => {
-	if (req.body.username != null) {
-		res.user.username = req.body.username;
+	if (req.body.firstname != null) {
+		res.user.firstname = req.body.firstname;
+	}
+	if (req.body.lastname != null) {
+		res.user.lastname = req.body.lastname;
 	}
 	if (req.body.email != null) {
 		res.user.email = req.body.email;
@@ -49,9 +53,10 @@ router.patch("/:id", bodyParser.json(), getUser, async (req, res) => {
 	if (!res.user) return res.status(404).json({ message: "user not found" });
 
 	const sql =
-		"UPDATE users SET username = ? , email = ?, password = ? WHERE id = ?";
+		"UPDATE users SET firstname = ? , lastname = ?, email = ?, password = ? WHERE id = ?";
 	await pool.query(sql, [
-		req.body.username,
+		req.body.firstname,
+		req.body.lastname,
 		req.body.email,
 		req.body.password,
 		req.params.id,
@@ -71,8 +76,6 @@ router.delete("/:id", getUser, async (req, res) => {
 
 	return res.status(200).json({ message: "user has been deleted" });
 });
-// router.route("/").get(controller.getAllUsers).post(controller.createUser);
-// router.route("/:id").get(controller.getSingleUser).patch(controller.updateUser).delete(controller.deleteUser);
 
 // MIDDLEWARE
 async function getUser(req, res, next) {
