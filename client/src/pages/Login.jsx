@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Stack, Typography, TextField, Button } from "@mui/material";
 import hashPassword from "../utils/hashPassword";
 import { connexion } from "../utils/session";
-const Login = ({ users }) => {
+import {usersContext} from "../App.jsx"
+
+const Login = () => {
 	document.documentElement.style.backgroundColor = "#2B2254";
+
+	const users = useContext(usersContext);
+
+	console.log(users[0])
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -14,7 +20,7 @@ const Login = ({ users }) => {
 		let actualUser;
 		// Identification
 		for (let i = 0; i < users.length; i++) {
-			if (users[i].email === email) {
+			if (users[i].Email === email) {
 				userExist = true;
 				actualUser = users[i];
 			}
@@ -27,7 +33,7 @@ const Login = ({ users }) => {
 		}
 
 		// Authentification
-		if (hashPassword(password) === actualUser.password) {
+		if (hashPassword(password) === actualUser.Mot_de_passe) {
 			connexion(actualUser);
 		} else {
 			console.log("incorrect password");
