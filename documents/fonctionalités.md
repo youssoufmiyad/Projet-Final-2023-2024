@@ -5,7 +5,7 @@
 
 ## Fonctionalités primordiale 
 ### Fonctionalités nécessaire au fonctionnement de l'application
-- Création de compte :hourglass_flowing_sand:
+- Création de compte :white_check_mark:
 - Publication de post :hourglass_flowing_sand:
 - Visionnage de post :hourglass_flowing_sand:
 
