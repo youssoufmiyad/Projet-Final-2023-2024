@@ -25,14 +25,16 @@ const Navbar = () => {
 				id="navbar"
 				direction="row"
 				sx={{
-					width: "60%",
+					width: "99%",
 					height: "100px",
 					border: "3px #7C5CFF solid",
 					display: "flex",
 					alignItems: "center",
+					marginLeft:"4px",
+					justifyContent:"space-evenly"
 				}}
 			>
-				<a href={"http://localhost:5173/"} style={{ margin: "6px" }}>
+				<a href={"http://localhost:5173/"} style={{ padding: "6px" }}>
 					<Home />
 				</a>
 
@@ -63,11 +65,12 @@ const Navbar = () => {
 
 				<br />
 
-				<Button variant="contained" startIcon={<Add/>}>
+				<Button variant="contained" startIcon={<Add/>} >
 					Nouveau projet
 				</Button>
 
-				{sessionStorage.getItem("id") ? (
+
+				{/* {sessionStorage.getItem("id") ? (
 					<div style={{ margin: "6px" }}>
 						<button type="button" onClick={deconnexion}>
 							disconnect
@@ -84,7 +87,7 @@ const Navbar = () => {
 						login
 					</button>
 				)}
-				<br />
+				<br /> */}
 			</Box>
 		);
 	}
