@@ -9,6 +9,7 @@ import Signup from "./pages/Signup";
 import { themeOptions } from "./utils/theme";
 import { createContext } from "react";
 import { getUsers } from "./utils/fetchData";
+import Timeline from "./pages/Timeline";
 
 export const usersContext = createContext();
 
@@ -26,7 +27,7 @@ function App() {
 				<Router>
 					<Navbar />
 					<Routes>
-						<Route path="/" element={<LandingPage />} />
+						<Route path="/" element={sessionStorage.getItem("id") === null ? <LandingPage /> : <Timeline/>} />
 
 						<Route path="/login" element={<Login />} />
 						<Route path="/signup" element={<Signup />} />
