@@ -2,14 +2,12 @@ import React, { useContext, useState } from "react";
 import { Stack, Typography, TextField, Button } from "@mui/material";
 import hashPassword from "../utils/hashPassword";
 import { connexion } from "../utils/session";
-import {usersContext} from "../App.jsx"
+import { usersContext } from "../App.jsx";
 
 const Login = () => {
 	document.documentElement.style.backgroundColor = "#2B2254";
 
 	const users = useContext(usersContext);
-
-	console.log(users[0])
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -55,11 +53,11 @@ const Login = () => {
 			<br />
 			<a
 				style={{
-					position:"absolute",
+					position: "absolute",
 					color: "grey",
 					fontSize: "24px",
 					right: "26%",
-					top:"110px"
+					top: "110px",
 				}}
 				href="../signup"
 			>
@@ -93,7 +91,7 @@ const Login = () => {
 						onChange={(e) => {
 							setEmail(e.target.value);
 						}}
-						sx={{ width: "360px" }}
+						sx={{ width: "100%" }}
 					/>
 					<br />
 					<br />
