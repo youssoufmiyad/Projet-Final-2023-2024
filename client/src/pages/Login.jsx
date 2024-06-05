@@ -12,6 +12,9 @@ const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
+	const [error, setError] = useState(false)
+	const [helperText, setHelperText] = useState("")
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		let userExist = false;
@@ -23,18 +26,20 @@ const Login = () => {
 				actualUser = users[i];
 			}
 		}
-		if (userExist) {
-			console.log("user exist");
-		} else {
-			console.log("user doesn't exist");
+		if (!userExist) {
+			setHelperText("L'email et le mot de passe ne correspondent pas")
+			setError(true)
 			return;
 		}
 
 		// Authentification
 		if (hashPassword(password) === actualUser.Mot_de_passe) {
+			setHelperText("")
+			setError(false)
 			connexion(actualUser);
 		} else {
-			console.log("incorrect password");
+			setError(true)
+			setHelperText("L'email et le mot de passe ne correspondent pas")
 		}
 	};
 
@@ -88,6 +93,7 @@ const Login = () => {
 						id="filled-basic"
 						label="email"
 						variant="filled"
+						error={error}
 						onChange={(e) => {
 							setEmail(e.target.value);
 						}}
@@ -100,6 +106,8 @@ const Login = () => {
 						label="mot de passe"
 						type="password"
 						variant="filled"
+						error={error}
+						helperText={helperText}
 						onChange={(e) => {
 							setPassword(e.target.value);
 						}}
