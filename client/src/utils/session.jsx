@@ -1,8 +1,5 @@
 export const connexion = (user) => {
-	sessionStorage.setItem("id", user._id);
-	sessionStorage.setItem("username", user.username);
-	sessionStorage.setItem("email", user.email);
-	sessionStorage.setItem("password", user.password);
+	sessionStorage.setItem("id", user.ID);
 
 	window.location.replace("../");
 };
