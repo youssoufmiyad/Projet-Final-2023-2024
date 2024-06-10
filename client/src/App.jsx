@@ -26,6 +26,7 @@ function App() {
 			<usersContext.Provider value={users}>
 				<Router>
 					<Navbar />
+					<br />
 					<Routes>
 						<Route path="/" element={sessionStorage.getItem("id") === null ? <LandingPage /> : <Timeline/>} />
 
