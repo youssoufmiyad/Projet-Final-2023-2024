@@ -42,7 +42,6 @@ const Navbar = () => {
 			<Box
 				className="navbar"
 				id="navbar"
-				direction="row"
 				sx={{
 					width: "99%",
 					height: "100px",
