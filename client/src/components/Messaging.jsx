@@ -13,7 +13,7 @@ const Messaging = () => {
 				marginLeft: "4px",
 			}}
 		>
-			<Typography variant="sectionName">Messagerie</Typography>
+			<Typography variant="sectionName" sx={{marginLeft:"24px"}}>Messagerie</Typography>
 			<Stack
 				direction={"row"}
 				alignItems={"center"}

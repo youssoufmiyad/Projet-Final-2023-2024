@@ -45,7 +45,6 @@ export const themeOptions = {
 		sectionName: {
 			fontSize: "24px",
 			fontWeight: "700",
-			marginLeft: "24px",
 			marginBottom: "8px",
 			color: "#B8AEAE",
 		},
