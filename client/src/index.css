@@ -66,3 +66,39 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+body {
+  --sb-track-color: #ffffff;
+  --sb-thumb-color: #7c5cff;
+  --sb-size: 14px;
+}
+
+.scroller::-webkit-scrollbar {
+  width: var(--sb-size)
+}
+
+.scroller::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 44px;
+}
+
+.scroller::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 44px;
+  
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .scroller {
+    scrollbar-color: var(--sb-thumb-color)
+                     var(--sb-track-color);
+  }
+}
+
+@media screen and (max-width: 900px){
+  .scroller::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 0;
+  }
+}

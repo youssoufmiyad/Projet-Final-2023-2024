@@ -7,7 +7,6 @@ const Post = () => {
 		<Stack
 			sx={{
 				border: "3px rgba(0, 0, 0, 0.22) solid",
-				width: "30%",
 			}}
 		>
 			<Box
