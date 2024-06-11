@@ -28,6 +28,9 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  --sb-track-color: #ffffff;
+  --sb-thumb-color: #7c5cff;
+  --sb-size: 10px;
 }
 
 h1 {
@@ -65,13 +68,6 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
-
-
-body {
-  --sb-track-color: #ffffff;
-  --sb-thumb-color: #7c5cff;
-  --sb-size: 14px;
 }
 
 .scroller::-webkit-scrollbar {
