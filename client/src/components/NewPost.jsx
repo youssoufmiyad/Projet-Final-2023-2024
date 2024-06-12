@@ -1,0 +1,47 @@
+import React, { useState } from "react";
+import { Stack, Typography, TextField, Button } from "@mui/material";
+import { publishPost } from "../utils/fetchData";
+
+const NewPost = () => {
+	const [content, setContent] = useState("");
+	
+    const handleSubmit = () =>{publishPost(sessionStorage.getItem("id"), content, null)}
+	return (
+		<Stack
+			sx={{
+				width: "780px",
+				height: "750px",
+				zIndex: "1",
+				position: "fixed",
+				left: "50%",
+				top: "50%",
+				border: "3px rgba(0, 0, 0, 0.22) solid",
+				transform: "translate(-50%, -50%)",
+				backgroundColor: "#FFF",
+			}}
+		>
+			<Typography variant="h3" sx={{ padding: "0 16px 16px" }}>
+				Nouveau post
+			</Typography>
+			<TextField
+				multiline
+				rows={25}
+				onChange={(e) => {
+					setContent(e.target.value);
+				}}
+			/>
+			<div style={{ textAlign: "end", padding: "8px" }}>
+				<Button
+					variant="contained"
+					sx={{ width: "200px", height: "50px", borderRadius: "44px" }}
+                    onClick={handleSubmit}
+
+				>
+					Envoyer
+				</Button>
+			</div>
+		</Stack>
+	);
+};
+
+export default NewPost;
