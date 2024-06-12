@@ -10,7 +10,7 @@ const Timeline = () => {
 		<Stack direction={"row"}>
 			<Messaging />
 			<Scroller posts={[<Post />, <Post />, <Post />]} />
-			<NewPost />
+			{/* <NewPost /> */}
 		</Stack>
 	);
 };

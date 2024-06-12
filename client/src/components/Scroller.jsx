@@ -7,12 +7,24 @@ import {
 	Menu,
 	MenuItem,
 	Button,
+	Modal,
 } from "@mui/material";
 import { KeyboardArrowDown } from "@mui/icons-material";
 
 import InfiniteScroll from "react-infinite-scroll-component";
+import NewPost from "./NewPost";
 
 const Scroller = ({ posts }) => {
+	const [newPostOpen, setNewPostOpen] = useState(false);
+	const handleNewPostOpen = () => {
+		console.log("ZAODAZD");
+		console.log(newPostOpen);
+		setNewPostOpen(true);
+	};
+	const handleNewPostClose = () => {
+		setNewPostOpen(false);
+	};
+
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event) => {
@@ -34,7 +46,11 @@ const Scroller = ({ posts }) => {
 				<Stack direction={"row"} justifyContent={"space-between"}>
 					<Typography variant="sectionName">Posts</Typography>
 					<br />
-					<Button startIcon={<KeyboardArrowDown/>} variant="outlined" onClick={handleClick} >
+					<Button
+						startIcon={<KeyboardArrowDown />}
+						variant="outlined"
+						onClick={handleClick}
+					>
 						Filtrer
 					</Button>
 					<Menu
@@ -47,17 +63,20 @@ const Scroller = ({ posts }) => {
 						}}
 					>
 						<MenuItem>Personne</MenuItem>
-						<MenuItem >Projet</MenuItem>
+						<MenuItem>Projet</MenuItem>
 					</Menu>
 				</Stack>
 
 				<Box>
-					<TextField
-						multiline
-						fullWidth
-						placeholder="Nouveau post..."
-						sx={{ marginTop: "64px" }}
-					/>
+					<Stack
+						sx={{ border: "3px rgba(0, 0, 0, 0.22) solid", padding: "20px", cursor:"text" }}
+						onClick={handleNewPostOpen}
+					>
+						Nouveau post...
+					</Stack>
+					<Modal open={newPostOpen} onClose={handleNewPostClose}>
+						{NewPost()}
+					</Modal>
 				</Box>
 				<br />
 				{posts.map((post, id) => {
