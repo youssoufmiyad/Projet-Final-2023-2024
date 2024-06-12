@@ -1,10 +1,10 @@
 const express = require("express");
 
-const usersRoute = require("./routes/users.js")
+const postsRoute = require("./routes/posts.js")
 require("dotenv").config();
 
 const app = express();
-const PORT = 8080;
+const PORT = 8081;
 
 //middleware
 // app.use(cors(corsOptions));
@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 });
 
 // api routes
-app.use("/users", usersRoute);
+app.use("/posts", postsRoute);
 
 
 app.listen(PORT, () => {
