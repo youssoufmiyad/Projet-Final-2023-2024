@@ -1,11 +1,20 @@
 import React, { useState } from "react";
-import { Stack, Typography, TextField, Button } from "@mui/material";
+import {
+	Stack,
+	Typography,
+	TextField,
+	Button,
+	IconButton,
+} from "@mui/material";
 import { publishPost } from "../utils/fetchData";
+import { AttachFile } from "@mui/icons-material";
 
 const NewPost = () => {
 	const [content, setContent] = useState("");
-	
-    const handleSubmit = () =>{publishPost(sessionStorage.getItem("id"), content, null)}
+
+	const handleSubmit = () => {
+		publishPost(sessionStorage.getItem("id"), content, null);
+	};
 	return (
 		<Stack
 			sx={{
@@ -30,16 +39,19 @@ const NewPost = () => {
 					setContent(e.target.value);
 				}}
 			/>
-			<div style={{ textAlign: "end", padding: "8px" }}>
-				<Button
-					variant="contained"
-					sx={{ width: "200px", height: "50px", borderRadius: "44px" }}
-                    onClick={handleSubmit}
-
-				>
-					Envoyer
-				</Button>
-			</div>
+				<div style={{display:"flex", justifyContent:"space-between"}}>
+					<IconButton component="label" sx={{marginTop:"8px"}}>
+						<AttachFile />
+						<input type="file" hidden />
+					</IconButton>
+					<Button
+						variant="contained"
+						sx={{ width: "200px", height: "50px", borderRadius: "44px", marginRight:"16px", marginTop:"8px" }}
+						onClick={handleSubmit}
+					>
+						Envoyer
+					</Button>
+				</div>
 		</Stack>
 	);
 };
