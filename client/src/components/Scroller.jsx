@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	Stack,
 	Typography,
@@ -12,17 +12,27 @@ import {
 import { KeyboardArrowDown } from "@mui/icons-material";
 
 import InfiniteScroll from "react-infinite-scroll-component";
+import { getPosts } from "../utils/fetchData";
 import NewPost from "./NewPost";
+import Post from "./Post";
 
-const Scroller = ({ posts }) => {
+const Scroller = () => {
 	const [newPostOpen, setNewPostOpen] = useState(false);
 	const handleNewPostOpen = () => {
-		console.log("ZAODAZD");
-		console.log(newPostOpen);
 		setNewPostOpen(true);
 	};
 	const handleNewPostClose = () => {
 		setNewPostOpen(false);
+	};
+
+	const [posts, setPosts] = useState([]);
+
+	useEffect(() => {
+		getPosts(setPosts);
+	}, [newPostOpen]);
+
+	const searchMore = () => {
+		getPosts(setPosts);
 	};
 
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -33,6 +43,8 @@ const Scroller = ({ posts }) => {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+	
+
 	return (
 		<Stack
 			className="scroller"
@@ -40,6 +52,7 @@ const Scroller = ({ posts }) => {
 		>
 			<InfiniteScroll
 				dataLength={posts.length}
+				next={searchMore}
 				loader={<p>Loading...</p>}
 				endMessage={<p>No more data to load.</p>}
 			>
@@ -69,20 +82,24 @@ const Scroller = ({ posts }) => {
 
 				<Box>
 					<Stack
-						sx={{ border: "3px rgba(0, 0, 0, 0.22) solid", padding: "20px", cursor:"text" }}
+						sx={{
+							border: "3px rgba(0, 0, 0, 0.22) solid",
+							padding: "20px",
+							cursor: "text",
+						}}
 						onClick={handleNewPostOpen}
 					>
 						Nouveau post...
 					</Stack>
 					<Modal open={newPostOpen} onClose={handleNewPostClose}>
-						{NewPost()}
+						{NewPost(setNewPostOpen)}
 					</Modal>
 				</Box>
 				<br />
 				{posts.map((post, id) => {
 					return (
 						<div key={`post ${id}`}>
-							{post} <br />{" "}
+							<Post post={post} /> <br />{" "}
 						</div>
 					);
 				})}

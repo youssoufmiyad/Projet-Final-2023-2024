@@ -26,6 +26,17 @@ export const getUsers = async (setUsers) => {
 	setUsers(data.users);
 };
 
+export const getUser = async (setUser, id) => {
+	const url = `http://localhost:8080/users/${id}`;
+	const options = {
+		method: "GET",
+	};
+	const response = await fetch(url, options);
+	const data = await response.json();
+	console.log(data)
+	setUser(data);
+};
+
 export const getPosts = async (setPosts) => {
 	const url = "http://localhost:8081/posts";
 	const options = {

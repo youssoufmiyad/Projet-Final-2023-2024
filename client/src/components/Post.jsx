@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Stack, Box, Typography, Divider } from "@mui/material";
 import { Person } from "@mui/icons-material";
 import ReactionBar from "./ReactionBar";
-const Post = () => {
+import { getUser } from "../utils/fetchData";
+const Post = ({ post }) => {
+	const [user, setUser] = useState();
+
+	useEffect(() => {
+		getUser(setUser, post.Id_Utilisateur);
+		
+	}, [post.Id_Utilisateur]);
+
+	useEffect(() => {
+		console.log(user)
+	}, [user]);
+
+	const dateParts = post.Date_publication.split(":");
+	dateParts[0]=dateParts[0].replace("-", "/");
+	// const publicationDate = new Date(
+	// 	dateParts[0],
+	// 	dateParts[1] - 1,
+	// 	dateParts[2].substr(0, 2),
+	// );
 	return (
 		<Stack
 			sx={{
@@ -15,26 +34,24 @@ const Post = () => {
 				<Stack direction={"row"}>
 					<Person sx={{ width: "108px", height: "108px" }} />
 					<div>
-						<Typography variant="h4">NOM</Typography>
+						<Typography variant="h4">{user ? user.Nom : "noname"}</Typography>
 						<Typography variant="h6">x relations en commun</Typography>
-						<Typography variant="h6">10/06/2024 à 20:00</Typography>
+						<Typography variant="h6">{dateParts[0]} à 20:00</Typography>
 					</div>
 				</Stack>
 				<Typography variant="textPost">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a dolor
-					vestibulum orci egestas finibus id eget lectus. In ut magna fringilla,
-					consequat dui a, tristique augue. Praesent non tortor vitae erat
-					<br />
-					<br />
-					pretium bibendum nec vel augue. Phasellus gravida mollis consequat.
-					Curabitur ut est euismod, placerat elit nec, vulputate ex. Nunc
-					egestas ultrices ante, venenatis euismod urna. Nulla enim metus,
-					rhoncus et scelerisque vitae, elementum...{" "}
+					{post.Contenue}
+					{post.Contenue.length > 500 ? (
+						<div>
+							<Typography color={"primary"}>voir plus</Typography>
+						</div>
+					) : (
+						false
+					)}
+
 					<div>
-						<Typography color={"primary"}>voir plus</Typography>
-					</div>
-					<div >
-						<img style={{maxWidth:"100%",}}
+						<img
+							style={{ maxWidth: "100%" }}
 							src="https://hips.hearstapps.com/hmg-prod/images/walking-on-the-danxia-landform-royalty-free-image-1623252956.jpg?resize=1200:*"
 							alt=""
 						/>

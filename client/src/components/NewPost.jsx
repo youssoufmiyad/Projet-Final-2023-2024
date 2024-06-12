@@ -9,11 +9,12 @@ import {
 import { publishPost } from "../utils/fetchData";
 import { AttachFile } from "@mui/icons-material";
 
-const NewPost = () => {
+const NewPost = (setIsOpen) => {
 	const [content, setContent] = useState("");
 
 	const handleSubmit = () => {
 		publishPost(sessionStorage.getItem("id"), content, null);
+		setIsOpen(false)
 	};
 	return (
 		<Stack
