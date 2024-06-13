@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Person } from "@mui/icons-material";
+import { firstFollow, follows, toggleFollow } from "../utils/fetchData";
+import { Button, Modal } from "@mui/material";
+import ModifyUserForm from "../components/ModifyUserForm";
 
 const Profile = () => {
+
 	const { id } = useParams();
 
 	const [userData, setUserData] = useState(null);
 	const [projects, setProjects] = useState([]);
 	const [publications, setPublications] = useState([]);
 	const [comments, setComments] = useState([]);
+	const [isFollow, setisFollow] = useState();
+
+  const [modifyOpen, setModifyOpen] = useState(false);
 
 	useEffect(() => {
 		// lien de l'api des utilisateurs
@@ -28,17 +35,56 @@ const Profile = () => {
 			.catch((error) =>
 				console.error("Error fetching publication data:", error),
 			);
-      console.log(publications)
 
 		fetch("/api/comments")
 			.then((response) => response.json())
 			.then((data) => setComments(data))
 			.catch((error) => console.error("Error fetching comment data:", error));
-	}, []);
+	}, [id]);
 
 	const formatDate = (dateString) => {
 		const date = new Date(dateString);
 		return date.toLocaleDateString();
+	};
+
+	useEffect(() => {
+		if (userData != null) {
+			follows(
+				sessionStorage.getItem("id"),
+				userData.ID.toString(),
+				setisFollow,
+			);
+		}
+	}, [userData]);
+
+	useEffect(() => {
+		if (userData != null)
+			console.log(
+				`follows : ${follows(
+					sessionStorage.getItem("id"),
+					userData.ID.toString(),
+					setisFollow,
+				)}`,
+			);
+	}, [userData]);
+
+	const handleFollow = () => {
+		if (setisFollow === 0) {
+			firstFollow(
+				sessionStorage.getItem("id"),
+				userData.ID.toString(),
+				setisFollow,
+			);
+			console.log("followed");
+		} else {
+			toggleFollow(
+				sessionStorage.getItem("id"),
+				userData.ID.toString(),
+				setisFollow,
+        isFollow
+			);
+			console.log("changed status");
+		}
 	};
 
 	return (
@@ -65,12 +111,23 @@ const Profile = () => {
 							false
 						)}
 						{userData.Localisation ? <p>{userData.Localisation}</p> : false}
-						<button type="button">+ Rejoindre</button>
-						<button type="button">+ Suivre</button>
+						{userData.ID.toString() !== sessionStorage.getItem("id") ? (
+							<>
+								<button type="button">+ Rejoindre</button>
+								<button type="button" onClick={handleFollow}>
+									{!isFollow ? "+ Suivre" : "- Ne plus suivre"}
+								</button>
+							</>
+						) : (
+                <Button type="button" onClick={()=>{setModifyOpen(true)}}>Modifier le profil</Button>
+                
+						)}
 					</>
 				)}
 			</div>
-
+<Modal open={modifyOpen} onClose={()=>{setModifyOpen(false)}}>
+                  {ModifyUserForm(userData)}
+                </Modal>
 			<div className="description">
 				<h3>Description</h3>
 				{}

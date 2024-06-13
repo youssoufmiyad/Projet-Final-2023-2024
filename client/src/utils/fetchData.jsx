@@ -33,7 +33,7 @@ export const getUser = async (setUser, id) => {
 	};
 	const response = await fetch(url, options);
 	const data = await response.json();
-	console.log(data)
+	console.log(data);
 	setUser(data);
 };
 
@@ -59,4 +59,71 @@ export const publishPost = async (userId, content, image) => {
 		}),
 	};
 	const response = await fetch("http://localhost:8081/posts", requestOptions);
+};
+
+export const getRelations = async (setRelations, id) => {
+	const url = `http://localhost:8080/users/${id}/relations`;
+	const options = {
+		method: "GET",
+	};
+	const response = await fetch(url, options);
+	const data = await response.json();
+	console.log(data);
+	setRelations(data);
+};
+
+export const follows = async (id1, id2, setIsFollow) => {
+	// test si l'user 1 follow l'user 2
+	const url = `http://localhost:8080/users/${id1}/follows/${id2}`;
+	const options = {
+		method: "GET",
+	};
+	const response = await fetch(url, options);
+	const data = await response.json();
+	console.log(data);
+	setIsFollow(data.isFollowing);
+};
+
+export const areMutuals = async (id1, id2) => {
+	const user1Follows = follows(id1, id2);
+	const user2Follows = follows(id2, id1);
+
+	return user1Follows + user2Follows === 2;
+};
+
+export const firstFollow = async (id1, id2, setIsFollow) => {
+	const url = `http://localhost:8080/users/${id1}/follows/${id2}`;
+	const options = {
+		method: "POST",
+	};
+	const response = await fetch(url, options);
+	setIsFollow(true);
+	return await response.json();
+};
+
+export const toggleFollow = async (id1, id2, setIsFollow, isFollow) => {
+	const url = `http://localhost:8080/users/${id1}/change-follow/${id2}`;
+	const options = {
+		method: "POST",
+	};
+	setIsFollow(!isFollow);
+	const response = await fetch(url, options);
+	return await response.json();
+};
+
+export const modifyUser = async (prenom, nom, mail, mot_de_passe, id) => {
+	const url = `http://localhost:8080/users/${id}`;
+	const options = {
+		method: "PATCH",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
+			firstname: prenom,
+			lastname: nom,
+			email: email,
+			password: mot_de_passe,
+		}),
+
+	};
+	const response = await fetch("http://localhost:8080/users", requestOptions);
+	window.location.reload()
 };
