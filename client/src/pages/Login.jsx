@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Stack, Typography, TextField, Button } from "@mui/material";
 import hashPassword from "../utils/hashPassword";
 import { connexion } from "../utils/session";
-const Login = ({ users }) => {
+import { usersContext } from "../App.jsx";
+
+const Login = () => {
 	document.documentElement.style.backgroundColor = "#2B2254";
+
+	const users = useContext(usersContext);
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+
+	const [error, setError] = useState(false)
+	const [helperText, setHelperText] = useState("")
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -14,23 +21,25 @@ const Login = ({ users }) => {
 		let actualUser;
 		// Identification
 		for (let i = 0; i < users.length; i++) {
-			if (users[i].email === email) {
+			if (users[i].Email === email) {
 				userExist = true;
 				actualUser = users[i];
 			}
 		}
-		if (userExist) {
-			console.log("user exist");
-		} else {
-			console.log("user doesn't exist");
+		if (!userExist) {
+			setHelperText("L'email et le mot de passe ne correspondent pas")
+			setError(true)
 			return;
 		}
 
 		// Authentification
-		if (hashPassword(password) === actualUser.password) {
+		if (hashPassword(password) === actualUser.Mot_de_passe) {
+			setHelperText("")
+			setError(false)
 			connexion(actualUser);
 		} else {
-			console.log("incorrect password");
+			setError(true)
+			setHelperText("L'email et le mot de passe ne correspondent pas")
 		}
 	};
 
@@ -49,11 +58,11 @@ const Login = ({ users }) => {
 			<br />
 			<a
 				style={{
-					position:"absolute",
+					position: "absolute",
 					color: "grey",
 					fontSize: "24px",
 					right: "26%",
-					top:"110px"
+					top: "110px",
 				}}
 				href="../signup"
 			>
@@ -84,10 +93,11 @@ const Login = ({ users }) => {
 						id="filled-basic"
 						label="email"
 						variant="filled"
+						error={error}
 						onChange={(e) => {
 							setEmail(e.target.value);
 						}}
-						sx={{ width: "360px" }}
+						sx={{ width: "100%" }}
 					/>
 					<br />
 					<br />
@@ -96,6 +106,8 @@ const Login = ({ users }) => {
 						label="mot de passe"
 						type="password"
 						variant="filled"
+						error={error}
+						helperText={helperText}
 						onChange={(e) => {
 							setPassword(e.target.value);
 						}}

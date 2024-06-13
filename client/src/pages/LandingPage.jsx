@@ -42,7 +42,7 @@ const LandingPage = () => {
 					alignSelf: "center",
 				}}
 				onClick={() => {
-					window.location.assign("../login");
+					window.location.assign("../signup");
 				}}
 			>
 				S'inscrire
@@ -53,7 +53,7 @@ const LandingPage = () => {
 			>
 				Deja inscrit ?{" "}
 				<a
-					href="../signup"
+					href="../login"
 					style={{ color: "#FFF", textDecoration: "underline" }}
 				>
 					connectez vous

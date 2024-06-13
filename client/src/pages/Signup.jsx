@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Stack, Typography, TextField, Button } from "@mui/material";
-import hashPassword from "../utils/hashPassword";
 import { emailREGEX, passwordREGEX, nameREGEX } from "../utils/regex";
+import { createUser } from "../utils/fetchData";
 
 const Signup = () => {
 	document.documentElement.style.backgroundColor = "#2B2254";
@@ -67,21 +67,9 @@ const Signup = () => {
 		}
 	}, [confirmPassword, password]);
 
-	const createUser = async () => {
-		const hashPWD = hashPassword(password);
-		const requestOptions = {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				firstname: firstName,
-				lastname: lastName,
-				email: email,
-				password: hashPWD,
-			}),
-		};
-		const response = await fetch("http://localhost:8080/users", requestOptions);
-		window.location.replace("../");
-	};
+	const handleSubmit = () =>{
+		createUser(firstName, lastName, email, password)
+	}
 
 	return (
 		<Stack sx={{ alignItems: "center" }}>
@@ -205,11 +193,11 @@ const Signup = () => {
 					<br />
 					<Button
 						type="button"
-						onClick={createUser}
+						onClick={handleSubmit}
 						variant="contained"
 						sx={{ height: "88px", marginTop: "32px" }}
 					>
-						S'inscrire
+						Se connecter
 					</Button>
 				</Stack>
 				<br />
