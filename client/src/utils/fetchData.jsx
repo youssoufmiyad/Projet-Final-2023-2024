@@ -33,7 +33,7 @@ export const getUser = async (setUser, id) => {
 	};
 	const response = await fetch(url, options);
 	const data = await response.json();
-	console.log(data)
+	console.log(data);
 	setUser(data);
 };
 
@@ -60,3 +60,29 @@ export const publishPost = async (userId, content, image) => {
 	};
 	const response = await fetch("http://localhost:8081/posts", requestOptions);
 };
+
+export const getRelations = async (setRelations, id) => {
+	const url = `http://localhost:8080/users/${id}/relations`;
+	const options = {
+		method: "GET",
+	};
+	const response = await fetch(url, options);
+	const data = await response.json();
+	console.log(data);
+	setRelations(data);
+};
+
+export const areMutuals = (id1, id2, relations) => {
+	relations.map((relation) => {
+		if (
+			((relation.Id_Utilisateur_1 === id1) &
+				(relation.Id_Utilisateur_2 === id2)) |
+			((relation.Id_Utilisateur_1 === id2) &
+				(relation.Id_Utilisateur_2 === id1))
+		) {
+			return relation;
+		}
+	});
+};
+
+export const toggleFollow = (id1, id2) => {};
