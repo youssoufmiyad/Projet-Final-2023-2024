@@ -28,7 +28,7 @@ const Navbar = () => {
 
 	const Profile = () => {
 		setAnchorEl(null);
-		window.location.replace(`../profile/${user.id}`)
+		window.location.replace(`../users/${user.id}`)
 	};
 
 	const LogOut = () => {

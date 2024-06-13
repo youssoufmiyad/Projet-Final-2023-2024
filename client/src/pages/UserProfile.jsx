@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Person } from "@mui/icons-material";
 import { firstFollow, follows, toggleFollow } from "../utils/fetchData";
+import { Button, Modal } from "@mui/material";
+import ModifyUserForm from "../components/ModifyUserForm";
 
 const Profile = () => {
+
 	const { id } = useParams();
 
 	const [userData, setUserData] = useState(null);
@@ -11,6 +14,8 @@ const Profile = () => {
 	const [publications, setPublications] = useState([]);
 	const [comments, setComments] = useState([]);
 	const [isFollow, setisFollow] = useState();
+
+  const [modifyOpen, setModifyOpen] = useState(false);
 
 	useEffect(() => {
 		// lien de l'api des utilisateurs
@@ -114,12 +119,15 @@ const Profile = () => {
 								</button>
 							</>
 						) : (
-							false
+                <Button type="button" onClick={()=>{setModifyOpen(true)}}>Modifier le profil</Button>
+                
 						)}
 					</>
 				)}
 			</div>
-
+<Modal open={modifyOpen} onClose={()=>{setModifyOpen(false)}}>
+                  {ModifyUserForm(userData)}
+                </Modal>
 			<div className="description">
 				<h3>Description</h3>
 				{}

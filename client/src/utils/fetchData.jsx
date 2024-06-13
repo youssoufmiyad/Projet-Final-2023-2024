@@ -110,3 +110,20 @@ export const toggleFollow = async (id1, id2, setIsFollow, isFollow) => {
 	const response = await fetch(url, options);
 	return await response.json();
 };
+
+export const modifyUser = async (prenom, nom, mail, mot_de_passe, id) => {
+	const url = `http://localhost:8080/users/${id}`;
+	const options = {
+		method: "PATCH",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
+			firstname: prenom,
+			lastname: nom,
+			email: email,
+			password: mot_de_passe,
+		}),
+
+	};
+	const response = await fetch("http://localhost:8080/users", requestOptions);
+	window.location.reload()
+};
