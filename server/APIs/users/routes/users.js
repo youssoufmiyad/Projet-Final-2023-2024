@@ -34,6 +34,7 @@ router.post("/", bodyParser.json(), async (req, res) => {
 			req.body.email,
 			req.body.password,
 		]);
+		
 	} catch (error) {
 		return res.status(404).json({ message: error.message });
 	}
@@ -84,7 +85,7 @@ router.delete("/:id", getUser, async (req, res) => {
 
 // MIDDLEWARE
 async function getUser(req, res, next) {
-	const sql = "SELECT * FROM users WHERE id = ?";
+	const sql = "SELECT * FROM Utilisateur WHERE id = ?";
 	const [rows] = await pool.query(sql, [req.params.id]);
 
 	res.user = rows[0];
