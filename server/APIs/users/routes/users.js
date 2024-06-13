@@ -4,7 +4,6 @@ const pool = require("../db/connect");
 
 const router = express.Router();
 
-// AUTHENTIFICATION
 router.get("/", async (req, res) => {
 	const sql = "SELECT * from Utilisateur";
 	try {
@@ -57,7 +56,7 @@ router.patch("/:id", bodyParser.json(), getUser, async (req, res) => {
 	if (!res.user) return res.status(404).json({ message: "user not found" });
 
 	const sql =
-		"UPDATE Utilisateur SET Prenom = ? , Nom = ?, Email = ?, Mot_de_passe = ? WHERE id = ?";
+		"UPDATE Utilisateur SET Prenom = ? , Nom = ?, Email = ?, Mot_de_passe = ? WHERE ID = ?";
 	await pool.query(sql, [
 		req.body.firstname,
 		req.body.lastname,
@@ -75,7 +74,7 @@ router.delete("/:id", getUser, async (req, res) => {
 
 	if (!res.user) return res.status(404).json({ message: "user not found" });
 
-	const sql = "DELETE FROM Utilisateur WHERE id = ?";
+	const sql = "DELETE FROM Utilisateur WHERE ID = ?";
 	await pool.query(sql, [req.params.id]);
 
 	return res.status(200).json({ message: "user has been deleted" });
@@ -83,7 +82,7 @@ router.delete("/:id", getUser, async (req, res) => {
 
 // MIDDLEWARE
 async function getUser(req, res, next) {
-	const sql = "SELECT * FROM Utilisateur WHERE id = ?";
+	const sql = "SELECT * FROM Utilisateur WHERE ID = ?";
 	const [rows] = await pool.query(sql, [req.params.id]);
 
 	res.user = rows[0];
@@ -93,7 +92,7 @@ async function getUser(req, res, next) {
 // RELATIONS
 router.get("/:id/relations", async (req, res) => {
 	const sql =
-		"SELECT * FROM relations WHERE Id_Utilisateur_1 = ? OR Id_Utilisateur_2 = ?";
+		"SELECT * FROM Relations WHERE Id_Utilisateur_1 = ? OR Id_Utilisateur_2 = ?";
 	try {
 		const [rows] = await pool.query(sql, [req.params.id, req.params.id]);
 		if (!rows.length) return res.status(204).json({ message: "empty list" });
@@ -108,8 +107,30 @@ router.get("/:id1/follows/:id2", async (req, res) => {
 		"SELECT * FROM Relations WHERE Id_Utilisateur1 = ? AND Id_Utilisateur2 = ? AND Follows = 1";
 	try {
 		const [rows] = await pool.query(sql, [req.params.id1, req.params.id2]);
-		if (!rows.length) return res.status(204).json({ isFollowing : 0});
+		if (!rows.length) return res.status(200).json({ isFollowing: 0 });
 		return res.status(200).json({ isFollowing: rows[0].Follows });
+	} catch (error) {
+		return res.status(500).json({ message: error });
+	}
+});
+
+router.post("/:id1/follows/:id2", async (req, res) => {
+	const sql =
+		"INSERT INTO Relations (Id_Utilisateur1, Id_Utilisateur2, Follows) VALUES (?, ?, 1)";
+	try {
+		const [rows] = await pool.query(sql, [req.params.id1, req.params.id2]);
+		return res.status(200).json({ message: "follow status changed" });
+	} catch (error) {
+		return res.status(500).json({ message: error });
+	}
+});
+
+router.post("/:id1/change-follow/:id2", async (req, res) => {
+	const sql =
+		"UPDATE Relations SET Follows = NOT Follows WHERE Id_Utilisateur1 = ? AND Id_Utilisateur2 = ?";
+	try {
+		const [rows] = await pool.query(sql, [req.params.id1, req.params.id2]);
+		return res.status(200).json({ message: "follow status changed" });
 	} catch (error) {
 		return res.status(500).json({ message: error });
 	}
