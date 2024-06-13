@@ -6,8 +6,8 @@
 ## Fonctionalités primordiale 
 ### Fonctionalités nécessaire au fonctionnement de l'application
 - Création de compte :white_check_mark:
-- Publication de post :hourglass_flowing_sand:
-- Visionnage de post :hourglass_flowing_sand:
+- Publication de post :white_check_mark:
+- Visionnage de post :white_check_mark:
 
 ## Fonctionalités principales
 ### Le projet sera considéré réussi une fois ces dernières implémentées
