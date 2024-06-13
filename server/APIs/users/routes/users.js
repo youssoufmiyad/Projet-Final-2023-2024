@@ -4,17 +4,16 @@ const pool = require("../db/connect");
 
 const router = express.Router();
 
+// AUTHENTIFICATION
 router.get("/", async (req, res) => {
 	const sql = "SELECT * from Utilisateur";
 	try {
 		const [rows] = await pool.query(sql);
 		if (!rows.length) return res.status(204).json({ message: "empty list" });
 		return res.status(200).json({ users: rows });
-
 	} catch (error) {
 		return res.status(500).json({ message: error });
 	}
-
 });
 
 router.get("/:id", getUser, (req, res) => {
@@ -34,7 +33,6 @@ router.post("/", bodyParser.json(), async (req, res) => {
 			req.body.email,
 			req.body.password,
 		]);
-		
 	} catch (error) {
 		return res.status(404).json({ message: error.message });
 	}
@@ -91,5 +89,18 @@ async function getUser(req, res, next) {
 	res.user = rows[0];
 	next();
 }
+
+// RELATIONS
+router.get("/:id/relations", async (req, res) => {
+	const sql =
+		"SELECT * FROM relations WHERE Id_Utilisateur_1 = ? OR Id_Utilisateur_2 = ?";
+	try {
+		const [rows] = await pool.query(sql, [req.params.id, req.params.id]);
+		if (!rows.length) return res.status(204).json({ message: "empty list" });
+		return res.status(200).json({ relations: rows });
+	} catch (error) {
+		return res.status(500).json({ message: error });
+	}
+});
 
 module.exports = router;
