@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Stack, Box, Typography, Divider } from "@mui/material";
+import { Stack, Box, Typography } from "@mui/material";
 import { Person } from "@mui/icons-material";
 import ReactionBar from "./ReactionBar";
 import { getUser } from "../utils/fetchData";
@@ -8,15 +8,14 @@ const Post = ({ post }) => {
 
 	useEffect(() => {
 		getUser(setUser, post.Id_Utilisateur);
-		
 	}, [post.Id_Utilisateur]);
 
 	useEffect(() => {
-		console.log(user)
+		console.log(user);
 	}, [user]);
 
 	const dateParts = post.Date_publication.split(":");
-	dateParts[0]=dateParts[0].replace("-", "/");
+	dateParts[0] = dateParts[0].replace("-", "/");
 	// const publicationDate = new Date(
 	// 	dateParts[0],
 	// 	dateParts[1] - 1,
@@ -32,7 +31,10 @@ const Post = ({ post }) => {
 				sx={{ marginTop: "32px", padding: "12px", whiteSpace: "break-spaces" }}
 			>
 				<Stack direction={"row"}>
-					<Person sx={{ width: "108px", height: "108px" }} />
+					<a href={`../users/${post.Id_Utilisateur}`}>
+						{" "}
+						<Person sx={{ width: "108px", height: "108px" }} />
+					</a>
 					<div>
 						<Typography variant="h4">{user ? user.Nom : "noname"}</Typography>
 						<Typography variant="h6">x relations en commun</Typography>
