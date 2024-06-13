@@ -10,6 +10,9 @@ import { themeOptions } from "./utils/theme";
 import { createContext } from "react";
 import { getUsers } from "./utils/fetchData";
 import Timeline from "./pages/Timeline";
+import NewProject from "./pages/NewProject";
+import NewHiringOffer from "./pages/NewHiringOffer";
+import Profile from "./pages/UserProfile";
 
 export const usersContext = createContext();
 
@@ -32,6 +35,9 @@ function App() {
 
 						<Route path="/login" element={<Login />} />
 						<Route path="/signup" element={<Signup />} />
+						<Route path="/new-project" element={<NewProject />} />
+						<Route path="/new-hiring-offer" element={<NewHiringOffer />} />
+						<Route path="/users/:id" element={<Profile />} />
 					</Routes>
 				</Router>
 			</usersContext.Provider>
