@@ -28,7 +28,7 @@ const Navbar = () => {
 
 	const Profile = () => {
 		setAnchorEl(null);
-		window.location.replace(`../profile/${user.id}`)
+		window.location.replace(`../profile/${user.id}`);
 	};
 
 	const LogOut = () => {
@@ -87,7 +87,9 @@ const Navbar = () => {
 					}}
 				>
 					<MenuItem onClick={Profile}>Profile</MenuItem>
-					<MenuItem onClick={LogOut} sx={{color:"red"}}>Se déconnecter</MenuItem>
+					<MenuItem onClick={LogOut} sx={{ color: "red" }}>
+						Se déconnecter
+					</MenuItem>
 				</Menu>
 
 				<br />
@@ -98,25 +100,30 @@ const Navbar = () => {
 
 				<br />
 
-			{sessionStorage.getItem("id") ? (
-				<>
-					<button type="button" onClick={deconnexion} style={{ margin: "6px" }}>
-						disconnect
+				{sessionStorage.getItem("id") ? (
+					<>
+						<button
+							type="button"
+							onClick={deconnexion}
+							style={{ margin: "6px" }}
+						>
+							disconnect
+						</button>
+					</>
+				) : (
+					<button
+						type="button"
+						onClick={() => {
+							window.location.replace(`${process.env.ROOT_URL}/login`);
+						}}
+						style={{ margin: "6px" }}
+					>
+						login
 					</button>
-				</>
-			) : (
-				<button
-					type="button"
-					onClick={() => {
-						window.location.replace(`${process.env.ROOT_URL}/login`);
-					}}
-					style={{ margin: "6px" }}
-				>
-					login
-				</button>
-			)}
-			<br />
-		</Stack>
-	);
+				)}
+				<br />
+			</Box>
+		);
+	}
 };
 export default Navbar;

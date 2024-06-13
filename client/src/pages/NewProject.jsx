@@ -70,7 +70,7 @@ function NewProject() {
           />
           <ul>
             {invitedFriends.map((friend, index) => (
-              <li key={index}>{friend}</li>
+              <li key={`friend ${index}`}>{friend}</li>
             ))}
           </ul>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'eact';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function NewHiringOffer() {
@@ -68,13 +68,13 @@ function NewHiringOffer() {
         <div className="logo">LOGO</div>
         <div className="search-bar">
           <input type="text" placeholder="Trouvez votre prochain projet" />
-          <button><img src="search-icon.svg" alt="Search" /></button>
+          <button type='button'><img src="search-icon.svg" alt="Search" /></button>
         </div>
         <div className="user-profile">
           <img src="user-profile.jpg" alt="User Profile" />
           <img src="notification-icon.svg" alt="Notifications" />
         </div>
-        <button className="new-project-button">+ NOUVEAU PROJET</button>
+        <button type='button' className="new-project-button">+ NOUVEAU PROJET</button>
       </header>
 
       <main>
@@ -91,8 +91,8 @@ function NewHiringOffer() {
                 <li>Nombre de membres : {members.length}</li>
                 <li>Localisation : {project.location}</li>
               </ul>
-              <button className="join-button" onClick={handleJoin}>+ Rejoindre</button>
-              <button className="follow-button" onClick={handleFollow}>+ Suivre</button>
+              <button type='button' className="join-button" onClick={handleJoin}>+ Rejoindre</button>
+              <button type='button' className="follow-button" onClick={handleFollow}>+ Suivre</button>
             </div>
           </div>
         </section>
