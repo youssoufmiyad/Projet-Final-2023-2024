@@ -22,12 +22,13 @@ const Profile = () => {
 			.then((data) => setProjects(data))
 			.catch((error) => console.error("Error fetching project data:", error));
 
-		fetch("http://localhost:8081/posts")
+		fetch("http://localhost:8081/posts/")
 			.then((response) => response.json())
 			.then((data) => setPublications(data))
 			.catch((error) =>
 				console.error("Error fetching publication data:", error),
 			);
+      console.log(publications)
 
 		fetch("/api/comments")
 			.then((response) => response.json())
@@ -58,7 +59,11 @@ const Profile = () => {
 						<h2>
 							{userData.Nom} {userData.Prenom}
 						</h2>
-						{userData.Titre_Professionnel ? <p>{userData.Titre_Professionnel}</p> : false}
+						{userData.Titre_Professionnel ? (
+							<p>{userData.Titre_Professionnel}</p>
+						) : (
+							false
+						)}
 						{userData.Localisation ? <p>{userData.Localisation}</p> : false}
 						<button type="button">+ Rejoindre</button>
 						<button type="button">+ Suivre</button>
@@ -88,15 +93,18 @@ const Profile = () => {
 			<div className="publications">
 				<h3>Publications</h3>
 				<ul>
-					{publications.map((publication) => (
-						<li key={publication.Id_Publication}>
-							<p>{publication.Contenue}</p>
-							<p>
-								Date de publication: {formatDate(publication.Date_publication)}
-							</p>
-							{}
-						</li>
-					))}
+					{publications.length > 0
+						? publications.map((publication) => (
+								<li key={publication.Id_Publication}>
+									<p>{publication.Contenue}</p>
+									<p>
+										Date de publication:{" "}
+										{formatDate(publication.Date_publication)}
+									</p>
+									{}
+								</li>
+						  ))
+						: false}
 				</ul>
 			</div>
 		</div>
