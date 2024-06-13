@@ -9,7 +9,7 @@ CREATE TABLE Projet (
 
 
 CREATE TABLE Utilisateur (
-    Id_Utilisateur INT PRIMARY KEY,
+    ID INT PRIMARY KEY,
     Nom VARCHAR(255),
     Prenom VARCHAR(255),
     Email VARCHAR(255),
@@ -59,10 +59,10 @@ CREATE TABLE Like (
 );
 
 
-CREATE TABLE Follow (
-    Id_Follow INT PRIMARY KEY,
+CREATE TABLE Relations (
     Id_Utilisateur1 INT,
     Id_Utilisateur2 INT,
-    FOREIGN KEY (Id_Utilisateur1) REFERENCES Utilisateur(Id_Utilisateur),
-    FOREIGN KEY (Id_Utilisateur2) REFERENCES Utilisateur(Id_Utilisateur)
+    Follows BOOLEAN,
+    FOREIGN KEY (Id_Utilisateur1) REFERENCES Utilisateur(ID),
+    FOREIGN KEY (Id_Utilisateur2) REFERENCES Utilisateur(ID)
 );
