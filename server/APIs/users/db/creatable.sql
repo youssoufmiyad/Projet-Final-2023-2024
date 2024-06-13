@@ -62,8 +62,7 @@ CREATE TABLE Like (
 CREATE TABLE Relations (
     Id_Utilisateur1 INT,
     Id_Utilisateur2 INT,
-    U1_follow_U2 BOOLEAN,
-    U2_follow_U1 BOOLEAN,
+    Follows BOOLEAN,
     FOREIGN KEY (Id_Utilisateur1) REFERENCES Utilisateur(ID),
     FOREIGN KEY (Id_Utilisateur2) REFERENCES Utilisateur(ID)
 );

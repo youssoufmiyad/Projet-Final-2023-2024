@@ -103,4 +103,16 @@ router.get("/:id/relations", async (req, res) => {
 	}
 });
 
+router.get("/:id1/follows/:id2", async (req, res) => {
+	const sql =
+		"SELECT * FROM Relations WHERE Id_Utilisateur1 = ? AND Id_Utilisateur2 = ? AND Follows = 1";
+	try {
+		const [rows] = await pool.query(sql, [req.params.id1, req.params.id2]);
+		if (!rows.length) return res.status(204).json({ isFollowing : 0});
+		return res.status(200).json({ isFollowing: rows[0].Follows });
+	} catch (error) {
+		return res.status(500).json({ message: error });
+	}
+});
+
 module.exports = router;
