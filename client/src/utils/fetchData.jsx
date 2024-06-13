@@ -72,17 +72,21 @@ export const getRelations = async (setRelations, id) => {
 	setRelations(data);
 };
 
-export const areMutuals = (id1, id2, relations) => {
-	relations.map((relation) => {
-		if (
-			((relation.Id_Utilisateur_1 === id1) &
-				(relation.Id_Utilisateur_2 === id2)) |
-			((relation.Id_Utilisateur_1 === id2) &
-				(relation.Id_Utilisateur_2 === id1))
-		) {
-			return relation;
-		}
-	});
+export const follows = async (id1, id2) => {
+	// test si l'user 1 follow l'user 2
+	const url = `http://localhost:8081/users/${id1}/follows/${id2}`;
+	const options = {
+		method: "GET",
+	};
+	await fetch(url, options);
+	return await response.json().isFollowing;
+};
+
+export const areMutuals = async (id1, id2) => {
+	const user1Follows = follows(id1, id2);
+	const user2Follows = follows(id2, id1);
+
+	return user1Follows + user2Follows === 2;
 };
 
 export const toggleFollow = (id1, id2) => {};
