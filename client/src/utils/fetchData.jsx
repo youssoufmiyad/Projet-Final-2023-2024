@@ -72,14 +72,16 @@ export const getRelations = async (setRelations, id) => {
 	setRelations(data);
 };
 
-export const follows = async (id1, id2) => {
+export const follows = async (id1, id2, setIsFollow) => {
 	// test si l'user 1 follow l'user 2
-	const url = `http://localhost:8081/users/${id1}/follows/${id2}`;
+	const url = `http://localhost:8080/users/${id1}/follows/${id2}`;
 	const options = {
 		method: "GET",
 	};
-	await fetch(url, options);
-	return await response.json().isFollowing;
+	const response = await fetch(url, options);
+	const data = await response.json();
+	console.log(data);
+	setIsFollow(data.isFollowing);
 };
 
 export const areMutuals = async (id1, id2) => {
@@ -89,4 +91,22 @@ export const areMutuals = async (id1, id2) => {
 	return user1Follows + user2Follows === 2;
 };
 
-export const toggleFollow = (id1, id2) => {};
+export const firstFollow = async (id1, id2, setIsFollow) => {
+	const url = `http://localhost:8080/users/${id1}/follows/${id2}`;
+	const options = {
+		method: "POST",
+	};
+	const response = await fetch(url, options);
+	setIsFollow(true);
+	return await response.json();
+};
+
+export const toggleFollow = async (id1, id2, setIsFollow, isFollow) => {
+	const url = `http://localhost:8080/users/${id1}/change-follow/${id2}`;
+	const options = {
+		method: "POST",
+	};
+	setIsFollow(!isFollow);
+	const response = await fetch(url, options);
+	return await response.json();
+};

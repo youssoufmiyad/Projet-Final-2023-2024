@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Person } from "@mui/icons-material";
+import { firstFollow, follows, toggleFollow } from "../utils/fetchData";
 
 const Profile = () => {
 	const { id } = useParams();
@@ -9,6 +10,7 @@ const Profile = () => {
 	const [projects, setProjects] = useState([]);
 	const [publications, setPublications] = useState([]);
 	const [comments, setComments] = useState([]);
+	const [isFollow, setisFollow] = useState();
 
 	useEffect(() => {
 		// lien de l'api des utilisateurs
@@ -28,17 +30,56 @@ const Profile = () => {
 			.catch((error) =>
 				console.error("Error fetching publication data:", error),
 			);
-		console.log(publications);
 
 		fetch("/api/comments")
 			.then((response) => response.json())
 			.then((data) => setComments(data))
 			.catch((error) => console.error("Error fetching comment data:", error));
-	}, []);
+	}, [id]);
 
 	const formatDate = (dateString) => {
 		const date = new Date(dateString);
 		return date.toLocaleDateString();
+	};
+
+	useEffect(() => {
+		if (userData != null) {
+			follows(
+				sessionStorage.getItem("id"),
+				userData.ID.toString(),
+				setisFollow,
+			);
+		}
+	}, [userData]);
+
+	useEffect(() => {
+		if (userData != null)
+			console.log(
+				`follows : ${follows(
+					sessionStorage.getItem("id"),
+					userData.ID.toString(),
+					setisFollow,
+				)}`,
+			);
+	}, [userData]);
+
+	const handleFollow = () => {
+		if (setisFollow === 0) {
+			firstFollow(
+				sessionStorage.getItem("id"),
+				userData.ID.toString(),
+				setisFollow,
+			);
+			console.log("followed");
+		} else {
+			toggleFollow(
+				sessionStorage.getItem("id"),
+				userData.ID.toString(),
+				setisFollow,
+        isFollow
+			);
+			console.log("changed status");
+		}
 	};
 
 	return (
@@ -68,7 +109,9 @@ const Profile = () => {
 						{userData.ID.toString() !== sessionStorage.getItem("id") ? (
 							<>
 								<button type="button">+ Rejoindre</button>
-								<button type="button">+ Suivre</button>
+								<button type="button" onClick={handleFollow}>
+									{!isFollow ? "+ Suivre" : "- Ne plus suivre"}
+								</button>
 							</>
 						) : (
 							false
