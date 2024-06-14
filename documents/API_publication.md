@@ -1,7 +1,5 @@
 # API Publications
 
-Je vous présente mon API sur le thème des valeureux guerrier de l'espace : les jedis.
-
 Cette API a été testé avec l'aide de postman.
 
 ## Routes
