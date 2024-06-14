@@ -6,5 +6,5 @@ export const connexion = (user) => {
 
 export const deconnexion = () => {
 	sessionStorage.clear();
-	window.location.reload();
+	window.location.replace("../");
 };
