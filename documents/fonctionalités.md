@@ -11,7 +11,7 @@
 
 ## Fonctionalités principales
 ### Le projet sera considéré réussi une fois ces dernières implémentées
-- Intéraction avec le profil d'autres utilisateurs (follow, partage, etc...) :hourglass_flowing_sand:
+- Intéraction avec le profil d'autres utilisateurs (follow, partage, etc...) :white_check_mark:
 - Modification du profil :hourglass_flowing_sand:
 - Système de like/republicaions de posts :hourglass_flowing_sand:
 - Espace de travail collaboratif :hourglass_flowing_sand:
