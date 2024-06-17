@@ -36,7 +36,7 @@ const ModifyUserForm = (user) => {
 			<Typography>Modification du profil</Typography>
 
 			<TextField
-				value={firstname.length > 0 ? firstname : user ? user.Prenom : false}
+				defaultValue={user ? user.Prenom : ""}
 				onChange={(e) => {
 					setFirstname(e.target.value);
 				}}
@@ -45,7 +45,7 @@ const ModifyUserForm = (user) => {
 			</TextField>
 			<br />
 			<TextField
-				value={user ? user.Nom : ""}
+				defaultValue={user ? user.Nom : ""}
 				onChange={(e) => {
 					setLastname(e.target.value);
 				}}
@@ -54,7 +54,7 @@ const ModifyUserForm = (user) => {
 			</TextField>
 			<br />
 			<TextField
-				value={user ? user.Email : ""}
+				defaultValue={user ? user.Email : ""}
 				onChange={(e) => {
 					setEmail(e.target.value);
 				}}

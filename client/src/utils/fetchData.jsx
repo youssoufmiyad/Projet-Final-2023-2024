@@ -119,11 +119,11 @@ export const modifyUser = async (prenom, nom, mail, mot_de_passe, id) => {
 		body: JSON.stringify({
 			firstname: prenom,
 			lastname: nom,
-			email: email,
+			email: mail,
 			password: mot_de_passe,
 		}),
 
 	};
-	const response = await fetch("http://localhost:8080/users", requestOptions);
+	const response = await fetch(url, options);
 	window.location.reload()
 };
