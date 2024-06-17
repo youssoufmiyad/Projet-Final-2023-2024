@@ -50,14 +50,14 @@ const Post = ({ post }) => {
 					) : (
 						false
 					)}
-
-					<div>
+					{post.Image ?<div>
 						<img
 							style={{ maxWidth: "100%" }}
-							src="https://hips.hearstapps.com/hmg-prod/images/walking-on-the-danxia-landform-royalty-free-image-1623252956.jpg?resize=1200:*"
+							src={post.Image}
 							alt=""
 						/>
-					</div>
+					</div> :false}
+					
 				</Typography>
 			</Box>
 			<ReactionBar />

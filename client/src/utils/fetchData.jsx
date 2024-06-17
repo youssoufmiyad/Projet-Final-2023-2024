@@ -44,7 +44,7 @@ export const getPosts = async (setPosts) => {
 	};
 	const response = await fetch(url, options);
 	const data = await response.json();
-	setPosts(data.posts);
+	setPosts(data.posts.reverse());
 };
 
 export const publishPost = async (userId, content, image) => {
